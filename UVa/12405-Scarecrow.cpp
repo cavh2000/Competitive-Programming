@@ -1,68 +1,44 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int main(){
-	int t;
-	int m, x, y;
-
-	int pivote=0, maximoDerecha=0,aux;
+int main (){
+	int i=0,a,b,scrw=0;
+	int fertil,nofertil;
+	string v;
+	char c;
+	vector <int> w;
+	cin>>b;
 	
-	cin >> t;
-	while(t--){
-		vector<pair<int, int> > segmento, respuestas;
-		cin >> m;
+	while(b--){
+		v="";
+		scrw=0;
+		cin>>a;
 		
-		while(cin >> x >> y){
-			if(x == 0 && y == 0) break;
-			segmento.push_back(make_pair(x, y));
-		}
-		sort(segmento.begin(), segmento.end());
+		for(i=0;i<a;i++)
+		{
+			cin >> c;
+            v += c;
+		}	
 		
-		bool haycambios=true;
-		int continua=0;
-		pivote=0, maximoDerecha=0;
-		
-		while(haycambios){
-			haycambios=false;
-			maximoDerecha=pivote;
-			
-			for(int i=continua;i<segmento.size();i++){
-				continua=i;
-				if(segmento[i].first <= pivote){
-					if(segmento[i].second > maximoDerecha){
-						maximoDerecha=segmento[i].second;
-						
-						aux=i; haycambios=true;
-					}
-				}else{
-					break;
-				}
+		fertil=nofertil=0;
+		for(i=1;i<=a;i++){
+			if(v[i]=='.'){
+				fertil++;	
 			}
 			
-			pivote=maximoDerecha;
-			if(haycambios){
-				respuestas.push_back(segmento[aux]);
-			}
-			
-			if(maximoDerecha>=m){
-				break;
+			if(v[i-1]=='.'){
+				if(i+3<=a || i+1==a || i==a || i==a-2){
+					scrw++;i=i+2;
+				}	
 			}
 		}
-		
-
-		
-		if(maximoDerecha>=m){
-			cout<<respuestas.size()<<endl;
-			for(int i=0;i<respuestas.size();i++){
-				cout<<respuestas[i].first<<" "<<respuestas[i].second<<endl;
-			}
-		}else{
-			cout<<"0"<<endl;
-		}
-		
-		if(t>0){
-			cout<<endl;	
-		} 
+		w.push_back(scrw);
+		scrw=0;
 	}
+
+	for(i=0;i<w.size();i++){
+		cout<<"Case "<<(i+1)<<": "<<w[i]<<endl;
+	}
+	
 	return 0;
-}
+} 
